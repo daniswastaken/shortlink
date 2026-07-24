@@ -4,9 +4,9 @@ import { execute } from "./sql/sql.js";
 
 const main = async () => {
   const db = new sqlite3.Database("shorten.db");
-  const sql = `INSERT INTO db(o_link, s_link) VALUES(?, ?)`;
+  const sql = `INSERT INTO db(o_link, s_link, time) VALUES(?, ?, ?)`;
   try {
-    await execute(db, sql, ["iPhone", 899.99]);
+    await execute(db, sql, [15, 15, 24]);
   } catch (err) {
     console.log(err);
   } finally {
