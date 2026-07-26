@@ -2,9 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import polka from "polka";
 import sirv from "sirv";
-import { generateId, deleteId } from "./lib/generate-id.js";
-
-const map = new Map();
+import { addLink, getLink } from "./lib/database.js";
 
 const publicDirectory = path.join(import.meta.dirname, "public");
 const app = polka({ onNoMatch });
@@ -29,10 +27,7 @@ app.post("/", (request, response) => {
     });
 
     request.on("end", () => {
-        // TODO: Handle route id creation in here
-        const id = generateId();
-        map.set(id, decodeURIComponent(link));
-
+        const id = addLink(decodeURIComponent(link));
         response.writeHead(200, { "content-type": "text/plain" });
         response.end(id);
     });
@@ -41,9 +36,7 @@ app.post("/", (request, response) => {
 app.use(sirv(publicDirectory));
 
 app.get("/:route", (request, response) => {
-    // TODO: Handle redirect in here
-    const { route } = request.params;
-    const link = map.get(route);
+    const link = getLink(request.params.route);
 
     if (link === undefined) {
         onNoMatch(request, response);
