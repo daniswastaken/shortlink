@@ -1,5 +1,3 @@
-const BASE = "";
-
 const form = document.querySelector("form");
 const paragraph = document.querySelector(".brand > p");
 
@@ -12,5 +10,5 @@ form.addEventListener("submit", async (event) => {
 		body: data.get("the_link"),
 	});
 
-	paragraph.innerText = `Your shortened URL: ${BASE}/${await route.text()}`;
+	paragraph.innerText = `Your shortened URL: ${window.location.origin}/${await route.text()}`;
 });
