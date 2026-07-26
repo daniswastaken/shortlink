@@ -8,44 +8,44 @@ const publicDirectory = path.join(import.meta.dirname, "public");
 const app = polka({ onNoMatch });
 
 function onNoMatch(request, response) {
-    fs.readFile(path.join(publicDirectory, "404.html"), (error, data) => {
-        if (error) {
-            response.writeHead(500, { "content-type": "text/plain" });
-            response.end("Internal server error");
-        } else {
-            response.writeHead(404, { "content-type": "text/html" });
-            response.end(data);
-        }
-    });
+	fs.readFile(path.join(publicDirectory, "404.html"), (error, data) => {
+		if (error) {
+			response.writeHead(500, { "content-type": "text/plain" });
+			response.end("Internal server error");
+		} else {
+			response.writeHead(404, { "content-type": "text/html" });
+			response.end(data);
+		}
+	});
 }
 
 app.post("/", (request, response) => {
-    let link = "";
+	let link = "";
 
-    request.on("data", (chunk) => {
-        link += chunk;
-    });
+	request.on("data", (chunk) => {
+		link += chunk;
+	});
 
-    request.on("end", () => {
-        const id = addLink(decodeURIComponent(link));
-        response.writeHead(200, { "content-type": "text/plain" });
-        response.end(id);
-    });
+	request.on("end", () => {
+		const id = addLink(decodeURIComponent(link));
+		response.writeHead(200, { "content-type": "text/plain" });
+		response.end(id);
+	});
 });
 
 app.use(sirv(publicDirectory));
 
 app.get("/:route", (request, response) => {
-    const link = getLink(request.params.route);
+	const link = getLink(request.params.route);
 
-    if (link === undefined) {
-        onNoMatch(request, response);
-    } else {
-        response.writeHead(302, { Location: link });
-        response.end();
-    }
+	if (link === undefined) {
+		onNoMatch(request, response);
+	} else {
+		response.writeHead(302, { Location: link });
+		response.end();
+	}
 });
 
 app.listen(8080, () => {
-    console.log("Server started at port 8080");
+	console.log("Server started at port 8080");
 });

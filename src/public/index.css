@@ -1,15 +1,15 @@
 .main {
-    height: 100dvh;
-    width: 100dvw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	height: 100dvh;
+	width: 100dvw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .content {
-    text-align: center;
+	text-align: center;
 }
 
 body {
-    margin: 0;
+	margin: 0;
 }
