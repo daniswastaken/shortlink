@@ -1,80 +1,44 @@
-import { pushLink } from "./lib/pushlink.js";
-
 import path from "node:path";
-import http from "node:http";
-import fs from "node:fs";
+import polka from "polka";
+import sirv from "sirv";
+import { generateId, deleteId } from "./lib/generate-id.js";
 
-const views = path.join(import.meta.dirname, "views");
-const paragraphRegex = /<p>.+<\/p>/;
+const map = new Map();
+const app = polka();
 
-const readFileCache = new Map();
-const readFile = (filepath, callback) => {
-    if (readFileCache.has(filepath)) {
-        return readFileCache.get(filepath);
-    }
+app.use(sirv(path.join(import.meta.dirname, "public")));
 
-    fs.readFile(filepath, (error, result) => {
-        if (error) {
-            callback(error);
-            return;
-        }
+app.post("/shorten", (request, response) => {
+    let link = "";
 
-        readFileCache.set(filepath, result);
-        callback(null, result);
+    request.on("data", (chunk) => {
+        link += chunk;
     });
-};
 
-const server = http.createServer((req, res) => {
-    if (req.method === "GET") {
-        let filename = req.url === "/" ? "index.html" : "404.html";
+    request.on("end", () => {
+        // TODO: Handle route id creation in here
+        const id = generateId();
+        map.set(id, decodeURIComponent(link));
 
-        readFile(path.join(views, filename), (error, data) => {
-            if (error) {
-                res.writeHead(500, { "content-type": "text/plain" });
-                res.end("Server Error");
-            } else {
-                res.writeHead(filename === "404.html" ? 404 : 200, {
-                    "content-type": "text/html",
-                });
-                res.end(data);
-            }
-        });
-
-        return;
-    } else if (req.method === "POST") {
-        if (req.url === "/") {
-            let body = "";
-
-            req.on("data", (chunk) => {
-                body += chunk.toString();
-            });
-
-            req.on("end", () => {
-                readFile(path.join(views, "index.html"), (error, data) => {
-                    if (error) {
-                        res.writeHead(500, { "content-type": "text/plain" });
-                        res.end("Server Error");
-                    } else {
-                        res.writeHead(200, {
-                            "content-type": "text/html",
-                        });
-                        res.end(
-                            data
-                                .toString()
-                                .replace(paragraphRegex, `<p>My id</p>`),
-                        );
-                    }
-                });
-            });
-
-            return;
-        }
-    }
-
-    res.writeHead(405, { "content-type": "text/plain" });
-    res.end(http.STATUS_CODES[405]);
+        response.writeHead(200, { "content-type": "text/plain" });
+        response.end(id);
+    });
 });
 
-server.listen(80, () => {
-    console.log("Server started at port 80");
+app.get("/:route", (request, response) => {
+    // TODO: Handle redirect in here
+    const { route } = request.params;
+    const link = map.get(route);
+
+    if (link === undefined) {
+        response.writeHead(404);
+    } else {
+        response.writeHead(302, { Location: link });
+    }
+
+    response.end();
+});
+
+app.listen(8080, () => {
+    console.log("Server started at port 8080");
 });

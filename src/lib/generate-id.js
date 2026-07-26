@@ -13,13 +13,17 @@ for (let i = 0; i < 26; i++) {
 }
 Object.freeze(IDS);
 
-export const USED_IDS = new Set();
+const USED_IDS = new Set();
 
 export function generateId() {
-	for (const id of IDS) {
-		if (!USED_IDS.has(id)) {
-			USED_IDS.add(id);
-			return id;
-		}
-	}
+    for (const id of IDS) {
+        if (!USED_IDS.has(id)) {
+            USED_IDS.add(id);
+            return id;
+        }
+    }
+}
+
+export function deleteId(id) {
+    USED_IDS.delete(id);
 }
