@@ -1,14 +1,27 @@
+import fs from "node:fs";
 import path from "node:path";
 import polka from "polka";
 import sirv from "sirv";
 import { generateId, deleteId } from "./lib/generate-id.js";
 
 const map = new Map();
-const app = polka();
 
-app.use(sirv(path.join(import.meta.dirname, "public")));
+const publicDirectory = path.join(import.meta.dirname, "public");
+const app = polka({ onNoMatch });
 
-app.post("/shorten", (request, response) => {
+function onNoMatch(request, response) {
+    fs.readFile(path.join(publicDirectory, "404.html"), (error, data) => {
+        if (error) {
+            response.writeHead(500, { "content-type": "text/plain" });
+            response.end("Internal server error");
+        } else {
+            response.writeHead(404, { "content-type": "text/html" });
+            response.end(data);
+        }
+    });
+}
+
+app.post("/", (request, response) => {
     let link = "";
 
     request.on("data", (chunk) => {
@@ -25,18 +38,19 @@ app.post("/shorten", (request, response) => {
     });
 });
 
+app.use(sirv(publicDirectory));
+
 app.get("/:route", (request, response) => {
     // TODO: Handle redirect in here
     const { route } = request.params;
     const link = map.get(route);
 
     if (link === undefined) {
-        response.writeHead(404);
+        onNoMatch(request, response);
     } else {
         response.writeHead(302, { Location: link });
+        response.end();
     }
-
-    response.end();
 });
 
 app.listen(8080, () => {
