@@ -1,10 +1,19 @@
 {
+	"private": true,
+	"scripts": {
+		"format": "prettier --write ."
+	},
 	"type": "module",
 	"dependencies": {
-		"fs": "0.0.1-security",
-		"http": "0.0.1-security",
-		"jsdom": "^29.1.1",
-		"module": "^2.0.0",
+		"polka": "1.0.0-next.28",
+		"sirv": "^3.0.2",
 		"sqlite3": "^6.0.1"
+	},
+	"devDependencies": {
+		"prettier": "^3.9.6"
+	},
+	"prettier": {
+		"tabWidth": 4,
+		"useTabs": true
 	}
 }
