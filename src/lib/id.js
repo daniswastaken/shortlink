@@ -16,7 +16,7 @@ for (let i = 0; i < 26; i++) {
 }
 Object.freeze(IDS);
 
-const USED_IDS = new Set();
+let USED_IDS = new Set();
 
 export function generateId() {
 	for (const id of IDS) {
@@ -36,6 +36,20 @@ export function deleteId(id) {
 const db = new sqlite3.Database("shorten.db");
 const sql = `INSERT INTO db(s_link, o_link, time) VALUES(?, ?, ?)`;
 
+let sql_l = `SELECT s_link FROM db`;
+
+db.all(sql_l, [], (err, rows) => {
+	if (err) {
+		throw err;
+	}
+	rows.forEach((row) => {
+		USED_IDS.add(row.s_link);
+		console.log(row.s_link);
+	});
+	console.log(USED_IDS)
+});
+
+/*
 var s_var = generateId();
 const o_url = "https://handaru.dev";
 const curHour = 15;
@@ -48,3 +62,4 @@ try {
 } finally {
 	db.close();
 }
+*/
