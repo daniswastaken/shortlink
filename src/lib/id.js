@@ -1,8 +1,15 @@
 import sqlite3 from "sqlite3";
 import { execute } from "./sql.js";
 
+const db = new sqlite3.Database("shorten.db");
+const sql = `INSERT INTO db(s_link, o_link, time) VALUES(?, ?, ?)`;
+
+let sql_l = `SELECT s_link FROM db`;
+
+var USED_IDS = new Set();
+
 // Generate 3-lowercase-alphabet ids
-const IDS = [];
+var IDS = [];
 for (let i = 0; i < 26; i++) {
 	for (let j = 0; j < 26; j++) {
 		for (let k = 0; k < 26; k++) {
@@ -16,12 +23,22 @@ for (let i = 0; i < 26; i++) {
 }
 Object.freeze(IDS);
 
-let USED_IDS = new Set();
-
 export function generateId() {
+	db.all(sql_l, [], (err, rows) => {
+		if (err) {
+			throw err;
+		}
+		rows.forEach((row) => {
+			console.log(`Add '${row.s_link}' from DB`)
+			USED_IDS.add(row.s_link);
+		});
+
+		console.log(USED_IDS);
+	});
+
 	for (const id of IDS) {
 		if (!USED_IDS.has(id)) {
-			USED_IDS.add(id);
+			console.log(id);
 			return id;
 		}
 	}
@@ -32,25 +49,15 @@ export function deleteId(id) {
 }
 
 // DEV
+// console.log(USED_IDS)
+generateId();
+// var s_var = generateId();
 
-const db = new sqlite3.Database("shorten.db");
-const sql = `INSERT INTO db(s_link, o_link, time) VALUES(?, ?, ?)`;
-
-let sql_l = `SELECT s_link FROM db`;
-
-db.all(sql_l, [], (err, rows) => {
-	if (err) {
-		throw err;
-	}
-	rows.forEach((row) => {
-		USED_IDS.add(row.s_link);
-		console.log(row.s_link);
-	});
-	console.log(USED_IDS)
-});
+// console.log(`Next ID: ${s_var}`);
+// USED_IDS.add(s_var)
+// console.log(USED_IDS)
 
 /*
-var s_var = generateId();
 const o_url = "https://handaru.dev";
 const curHour = 15;
 
