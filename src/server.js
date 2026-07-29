@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import polka from "polka";
 import sirv from "sirv";
-import { addLink, getLink } from "./lib/database.js";
+import { addLink, getLink, refresh } from "./lib/database.js";
 
 const publicDirectory = path.join(import.meta.dirname, "public");
 const app = polka({ onNoMatch });
@@ -38,7 +38,7 @@ app.use(sirv(publicDirectory));
 app.get("/:route", (request, response) => {
 	const link = getLink(request.params.route);
 
-	if (link === undefined) {
+	if (link == null) {
 		onNoMatch(request, response);
 	} else {
 		response.writeHead(302, { Location: link });
@@ -47,5 +47,6 @@ app.get("/:route", (request, response) => {
 });
 
 app.listen(8080, () => {
+	refresh();
 	console.log("Server started at port 8080");
 });
