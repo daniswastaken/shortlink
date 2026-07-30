@@ -1,7 +1,9 @@
 {
 	"private": true,
 	"scripts": {
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"start": "node src/server.js",
+		"watch": "node --watch --watch-path=src/public src/server.js"
 	},
 	"type": "module",
 	"dependencies": {
