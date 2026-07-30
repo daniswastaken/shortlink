@@ -1,9 +1,13 @@
 import { DatabaseSync } from "node:sqlite";
-import { USED_IDS, generateId, deleteId } from "./id.js";
+import { USED_IDS, generateId } from "./id.js";
 
 const db = new DatabaseSync("shorten.db");
 const DAY = 24 * 60 * 60 * 1000;
 
+/**
+ * Refresh the USED_IDS state based on the database.
+ * @return {void}
+ */
 export function refresh() {
 	const rows = db.prepare("SELECT * FROM db").all();
 	for (const row of rows) {
@@ -16,6 +20,11 @@ export function refresh() {
 	}
 }
 
+/**
+ * Add link to database and return an id.
+ * @param {string} link
+ * @return {string | null}
+ */
 export function addLink(link) {
 	refresh();
 	const id = generateId();
@@ -32,6 +41,11 @@ export function addLink(link) {
 	}
 }
 
+/**
+ * Get the link from the id.
+ * @param {string} id
+ * @return {string | null}
+ */
 export function getLink(id) {
 	refresh();
 	const row = db.prepare("SELECT o_link FROM db WHERE s_link = ?").get(id);

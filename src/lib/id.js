@@ -13,16 +13,18 @@ for (let i = 0; i < 26; i++) {
 }
 
 // Expose
+/** @type {Set<string>} */
 export const USED_IDS = new Set();
 
+/**
+ * @return {string | null}
+ */
 export function generateId() {
 	for (const id of IDS) {
 		if (!USED_IDS.has(id)) {
 			return id;
 		}
 	}
-}
 
-export function deleteId(id) {
-	USED_IDS.delete(id);
+	return null;
 }

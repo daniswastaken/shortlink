@@ -7,6 +7,10 @@ import { addLink, getLink, refresh } from "./lib/database.js";
 const publicDirectory = path.join(import.meta.dirname, "public");
 const app = polka({ onNoMatch });
 
+/**
+ * @param {import("sirv").Request} request
+ * @param {import("sirv").Response} response
+ */
 function onNoMatch(request, response) {
 	fs.readFile(path.join(publicDirectory, "404.html"), (error, data) => {
 		if (error) {
