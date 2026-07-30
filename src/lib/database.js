@@ -1,7 +1,10 @@
 import { DatabaseSync } from "node:sqlite";
+import path from "node:path";
 import { USED_IDS, generateId } from "./id.js";
 
-const db = new DatabaseSync("shorten.db");
+const db = new DatabaseSync(
+	path.join(import.meta.dirname, "..", "..", "shorten.db"),
+);
 const DAY = 24 * 60 * 60 * 1000;
 
 /**
