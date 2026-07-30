@@ -30,7 +30,7 @@ app.post("/", (request, response) => {
 		const id = addLink(decodeURIComponent(link));
 		if (id == null) {
 			response.writeHead(507, { "content-type": "text/plain" });
-			response.end("All IDs are used");
+			response.end("All IDs are used, please try again after 24 hours");
 		} else {
 			response.writeHead(200, { "content-type": "text/plain" });
 			response.end(id);
