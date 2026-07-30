@@ -28,8 +28,13 @@ app.post("/", (request, response) => {
 
 	request.on("end", () => {
 		const id = addLink(decodeURIComponent(link));
-		response.writeHead(200, { "content-type": "text/plain" });
-		response.end(id);
+		if (id == null) {
+			response.writeHead(507, { "content-type": "text/plain" });
+			response.end("All IDs are used");
+		} else {
+			response.writeHead(200, { "content-type": "text/plain" });
+			response.end(id);
+		}
 	});
 });
 
