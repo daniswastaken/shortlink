@@ -10,5 +10,7 @@ form.addEventListener("submit", async (event) => {
 		body: data.get("the_link"),
 	});
 
-	paragraph.innerText = `Your shortened URL: ${window.location.origin}/${await route.text()}`;
+	paragraph.innerText = route.ok
+		? `Your shortened URL: ${window.location.origin}/${await route.text()}`
+		: `Error: ${await route.text()}`;
 });

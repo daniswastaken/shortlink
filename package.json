@@ -1,13 +1,14 @@
 {
 	"private": true,
 	"scripts": {
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"start": "node src/server.js",
+		"watch": "node --watch --watch-path=src/public src/server.js"
 	},
 	"type": "module",
 	"dependencies": {
 		"polka": "1.0.0-next.28",
-		"sirv": "^3.0.2",
-		"sqlite3": "^6.0.1"
+		"sirv": "^3.0.2"
 	},
 	"devDependencies": {
 		"prettier": "^3.9.6"
