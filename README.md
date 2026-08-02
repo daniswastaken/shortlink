@@ -61,7 +61,7 @@ For running this project locally for development purposes, follow these steps be
    ```
 4. Run the localhost development server
    ```sh
-   node  ./src/server.js
+   node ./src/server.js
    ```
 5. Visit the localhost
    ```
