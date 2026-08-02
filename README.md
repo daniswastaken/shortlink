@@ -73,9 +73,7 @@ For running this project locally for development purposes, follow these steps be
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Just put your links, click the `Shorten` button, get your shortened link. Done.
 
 <!-- ROADMAP -->
 ## Roadmap
