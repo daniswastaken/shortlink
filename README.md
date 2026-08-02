@@ -12,13 +12,14 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
+[![Apache 2.0 License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/daniswastaken/shortlink">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="docs/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">shortlink</h3>
@@ -26,7 +27,7 @@
   <p align="center">
     Simply short your link.
     <br />
-    <a href="https://github.com/daniswastaken/shortlink"><strong>Explore the docs »</strong></a>
+    <a href="https://s.handaru.dev"><strong>Try it out »</strong></a>
     <br />
     <br />
     <a href="https://github.com/daniswastaken/shortlink">View Demo</a>
@@ -39,8 +40,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Simply short your link. No login needed.
 
@@ -113,3 +112,6 @@ Handaru Daniswara - [hi@handaru.dev](mailto:hi@handaru.dev)
 [issues-url]: https://github.com/daniswastaken/shortlink/issues
 [license-shield]: https://img.shields.io/github/license/daniswastaken/shortlink.svg?style=for-the-badge
 [license-url]: https://github.com/daniswastaken/shortlink/blob/master/LICENSE
+
+[linkedin-shield]: https://img.shields.io/badge/-HANDARU.DEV-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://handaru.dev
