@@ -23,6 +23,8 @@ function onNoMatch(request, response) {
 	});
 }
 
+const VALID_PROTOCOLS = new Set(["http:", "https:"]);
+
 app.post("/", (request, response) => {
 	let link = "";
 
@@ -31,13 +33,30 @@ app.post("/", (request, response) => {
 	});
 
 	request.on("end", () => {
-		const id = addLink(decodeURIComponent(link));
-		if (id == null) {
-			response.writeHead(507, { "content-type": "text/plain" });
-			response.end("All IDs are used, please try again after 24 hours");
+		link = decodeURIComponent(link);
+
+		let allowed = true;
+		try {
+			const parsed = new URL(link);
+			allowed = VALID_PROTOCOLS.has(parsed.protocol);
+		} catch {
+			allowed = false;
+		}
+
+		if (allowed) {
+			const id = addLink(link);
+			if (id == null) {
+				response.writeHead(507, { "content-type": "text/plain" });
+				response.end(
+					"All IDs are used, please try again after 24 hours",
+				);
+			} else {
+				response.writeHead(200, { "content-type": "text/plain" });
+				response.end(id);
+			}
 		} else {
-			response.writeHead(200, { "content-type": "text/plain" });
-			response.end(id);
+			response.writeHead(400, { "content-type": "text/plain" });
+			response.end("URL not allowed");
 		}
 	});
 });
