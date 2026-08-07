@@ -8,6 +8,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -39,11 +40,13 @@
 </div>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 Simply short your link. No login needed.
 
 <!-- GETTING STARTED -->
+
 ## Developer
 
 For running this project locally for development purposes, follow these steps below.
@@ -52,33 +55,33 @@ For running this project locally for development purposes, follow these steps be
 
 1. Install [Node.JS](https://nodejs.org/) if you haven't already.
 2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
+    ```sh
+    git clone https://github.com/github_username/repo_name.git
+    ```
 3. Install dependencies
-   ```sh
-   pnpm install
-   ```
+    ```sh
+    pnpm install
+    ```
 4. Run the localhost development server
-   ```sh
-   node ./src/server.js
-   ```
+    ```sh
+    node ./src/server.js
+    ```
 5. Visit the localhost
-   ```
-   Go to localhost:8080 (default port)
-   ```
-
-
+    ```
+    Go to localhost:8080 (default port)
+    ```
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 Just put your links, click the `Shorten` button, get your shortened link. Done.
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [X] Simple UI
+- [x] Simple UI
 - [ ] Database on Cloudflare D1
 
 See the [open issues](https://github.com/daniswastaken/shortlink/issues) for a full list of proposed features (and known issues).
@@ -90,16 +93,19 @@ See the [open issues](https://github.com/daniswastaken/shortlink/issues) for a f
 </a>
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 <!-- CONTACT -->
+
 ## Contact
 
 Handaru Daniswara - [hi@handaru.dev](mailto:hi@handaru.dev)
 
 <!-- MARKDOWN LINKS & IMAGES -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/daniswastaken/shortlink.svg?style=for-the-badge
 [contributors-url]: https://github.com/daniswastaken/shortlink/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/daniswastaken/shortlink.svg?style=for-the-badge
@@ -110,6 +116,5 @@ Handaru Daniswara - [hi@handaru.dev](mailto:hi@handaru.dev)
 [issues-url]: https://github.com/daniswastaken/shortlink/issues
 [license-shield]: https://img.shields.io/github/license/daniswastaken/shortlink.svg?style=for-the-badge
 [license-url]: https://github.com/daniswastaken/shortlink/blob/master/LICENSE
-
 [linkedin-shield]: https://img.shields.io/badge/-HANDARU.DEV-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://handaru.dev
